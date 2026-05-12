@@ -1,0 +1,7 @@
+invoice_no,client_name,amount_due,due_date,contact_email,days_overdue,followup_count
+INV-001,Acme Corp,1500.00,2023-10-01,billing@acmecorp.com,3,0
+INV-002,Global Tech,3200.50,2023-09-25,accounts@globaltech.io,10,1
+INV-003,Stark Industries,10500.00,2023-09-15,finance@stark.com,17,2
+INV-004,Wayne Enterprises,500.00,2023-09-01,ap@wayne.com,25,3
+INV-005,LexCorp,25000.00,2023-08-01,lex@lexcorp.com,35,3
+INV-006,Valid Client,100,2023-11-01,good@email.com,0,0

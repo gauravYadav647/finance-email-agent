@@ -1,0 +1,9 @@
+google-generativeai
+pydantic
+python-dotenv
+pandas
+email-validator
+flask
+werkzeug
+apscheduler
+anthropic
