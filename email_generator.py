@@ -85,8 +85,13 @@ Do not include any other text, markdown formatting like ```json, or explanations
             parsed_json = json.loads(raw_response)
             email_output = EmailOutput(**parsed_json)
             
-            # Hallucination cross-check
-            if str(record['amount_due']) not in parsed_json['body']:
+            # Inject actual record values into the LLM template response
+            for key in ['client_name', 'invoice_no', 'amount_due', 'due_date', 'days_overdue']:
+                email_output.subject = email_output.subject.replace(f"{{{key}}}", str(record[key]))
+                email_output.body = email_output.body.replace(f"{{{key}}}", str(record[key]))
+            
+            # Hallucination cross-check (on the final formatted body)
+            if str(record['amount_due']) not in email_output.body:
                 if attempt == 1:
                     return None, "Amount hallucination detected", "GENERATION_FAILED"
                 continue # retry
