@@ -93,7 +93,9 @@ def process_csv():
                     email, error, status = generate_email(valid_record)
                     
                     if email:
-                        log_audit_event(invoice_no, valid_record['client_name'], valid_record['contact_email'], valid_record['amount_due'], days_overdue, valid_record['followup_count'], stage, email.subject, email.body, status, "")
+                        dry_run = os.environ.get("DRY_RUN", "true").lower() == "true"
+                        send_status = "DRY_RUN" if dry_run else status
+                        log_audit_event(invoice_no, valid_record['client_name'], valid_record['contact_email'], valid_record['amount_due'], days_overdue, valid_record['followup_count'], stage, email.subject, email.body[:100], send_status, "")
                         results.append({
                             "invoice_no": invoice_no,
                             "client_name": valid_record['client_name'],

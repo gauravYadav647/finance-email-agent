@@ -51,7 +51,9 @@ def run_agent():
             print("\n[SUCCESS] Generated Email:")
             print(f"Subject: {email.subject}")
             print(f"Body:\n{email.body}")
-            log_audit_event(invoice_no, record['client_name'], record['contact_email'], record['amount_due'], days_overdue, record['followup_count'], stage, email.subject, email.body, status, "")
+            dry_run = os.environ.get("DRY_RUN", "true").lower() == "true"
+            send_status = "DRY_RUN" if dry_run else status
+            log_audit_event(invoice_no, record['client_name'], record['contact_email'], record['amount_due'], days_overdue, record['followup_count'], stage, email.subject, email.body, send_status, "")
         else:
             print(f"\n[FAILED] Error: {error}")
             log_audit_event(invoice_no, record['client_name'], record['contact_email'], record['amount_due'], days_overdue, record['followup_count'], stage, "", "", status, error)
